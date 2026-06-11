@@ -18,6 +18,9 @@ import { yeetful, GrantError } from 'yeetful/agent'
 
 const LIVE = process.env.LIVE === '1' && !!process.env.PRIVATE_KEY
 
+// Optional search query for the paid call: `npm start -- lisbon`
+const QUERY = process.argv[2] ?? 'tokyo'
+
 const account = privateKeyToAccount(
   process.env.PRIVATE_KEY ?? generatePrivateKey(), // throwaway in demo mode
 )
@@ -72,14 +75,16 @@ try {
 // 3. LIVE only: one real x402 payment — 402 challenge → USDC payment signed
 //    (grant-checked first) → 200 + settlement receipt.
 if (LIVE) {
-  console.log('3) Paid x402 call (TripAdvisor location search, ~$0.01):')
+  console.log(`3) Paid x402 call (TripAdvisor location search for "${QUERY}", ~$0.01):`)
   const res = await pay(
-    'https://tripadvisor.x402.paysponge.com/api/v1/location/search?searchQuery=tokyo&language=en',
+    `https://tripadvisor.x402.paysponge.com/api/v1/location/search?searchQuery=${encodeURIComponent(QUERY)}&language=en`,
   )
   const body = await res.json()
   console.log(`   ${res.status} — ${JSON.stringify(body).slice(0, 120)}…\n`)
 } else {
-  console.log('3) Paid call skipped (set PRIVATE_KEY and LIVE=1 in .env to spend ~$0.01).\n')
+  console.log(
+    `3) Paid call skipped — would search TripAdvisor for "${QUERY}" (set PRIVATE_KEY and LIVE=1 in .env to spend ~$0.01; pick a query with \`npm start -- lisbon\`).\n`,
+  )
 }
 
 console.log(
