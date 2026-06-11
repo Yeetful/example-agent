@@ -54,7 +54,7 @@ radius: $0.05/call, $1/day, expires in 24h — even a runaway loop can't spend m
 Create your expense account at [yeetful.com/dashboard](https://yeetful.com/dashboard),
 mint an API key, and set `YEETFUL_API_KEY` + `YEETFUL_GRANT_ID` in `.env` — every
 receipt (settlements *and* denials) then syncs to your hosted ledger, so budgets and
-the audit feed include this agent. Ships in `yeetful` ≥ 0.3 (harmlessly ignored by 0.2.x).
+the audit feed include this agent.
 
 ## Files
 
