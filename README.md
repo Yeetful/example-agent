@@ -42,7 +42,8 @@ The free demo shows the two halves of the expense account:
 
 ```sh
 cp .env.example .env   # add PRIVATE_KEY (small dedicated burner!) and LIVE=1
-npm start
+npm start              # searches "tokyo" by default…
+npm start -- lisbon    # …or pass your own query (note the bare `--`)
 ```
 
 Makes one real x402 call: TripAdvisor location search, $0.01 USDC on Base, settled
