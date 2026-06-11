@@ -43,6 +43,9 @@ const pay = yeetful({
   // With an API key + grant id, receipts also sync to your yeetful.com
   // dashboard ledger.
   apiKey: process.env.YEETFUL_API_KEY || undefined,
+  // Must be the dashboard's CANONICAL origin: fetch drops the auth header on
+  // cross-origin redirects (e.g. apex → www), which 401s every receipt POST.
+  ledgerUrl: process.env.YEETFUL_LEDGER_URL || undefined,
   onReceipt: (r) =>
     console.log(
       `  receipt → ${r.ok ? 'OK ' : 'DENY'} ${r.host}  $${r.amountUsd}` +
