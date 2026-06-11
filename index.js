@@ -38,7 +38,7 @@ const pay = yeetful({
     expiresAt: Date.now() + 24 * 60 * 60 * 1000,
   },
   // With an API key + grant id, receipts also sync to your yeetful.com
-  // dashboard ledger (yeetful >= 0.3; harmlessly ignored by 0.2.x).
+  // dashboard ledger.
   apiKey: process.env.YEETFUL_API_KEY || undefined,
   onReceipt: (r) =>
     console.log(
@@ -88,5 +88,5 @@ console.log(
     .toFixed(2)}`,
 )
 
-// Drain hosted-ledger sync before exit (no-op without YEETFUL_API_KEY / >=0.3).
-if (typeof pay.flushLedger === 'function') await pay.flushLedger()
+// Drain hosted-ledger sync before exit (no-op without YEETFUL_API_KEY).
+await pay.flushLedger()
